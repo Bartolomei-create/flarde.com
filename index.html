@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flarde | TRIUWA WUW toegang</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      margin-top: 2rem;
+    }
+    .level {
+      border: 1px solid #000;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #f9f9f9;
+    }
+    .wallet-section {
+      margin: 2rem 0;
+    }
+    .connect-btn {
+      background: #000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .status {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌍 FLARDE</h1>
+    <p>
+      Dit is de toegangspoort. Niet tot kennis, maar tot <strong>verantwoordelijkheid</strong>.
+      De munt heet TRIUWA WUW. Je hoeft niet alles te weten. Je hoeft alleen maar <em>te voelen</em>
+      wanneer je genoeg weet.
+    </p>
+
+    <div class="wallet-section">
+      <h2>🔐 Wallet Connect</h2>
+      <button class="connect-btn" id="connectButton">Verbind je wallet</button>
+      <div class="status" id="status"></div>
+    </div>
+
+    <h2>📊 Toegangslagen</h2>
+    <div class="level">
+      <h3>🔹 10 – 99 TRIUWA</h3>
+      <p>De eerste inzichten. Je voelt dat er iets niet klopt. Je krijgt toegang tot de basis.</p>
+    </div>
+
+    <div class="level">
+      <h3>🔸 100 – 999 TRIUWA</h3>
+      <p>Je begrijpt dat het geen foutje is. Je krijgt dieper toegang tot de systemen erachter.</p>
+    </div>
+
+    <div class="level">
+      <h3>🔶 1.000 – 9.999 TRIUWA</h3>
+      <p>De codes, de archieven, de verdragen. Je snapt het spel. En waarom het gespeeld wordt.</p>
+    </div>
+
+    <div class="level">
+      <h3>🟥 10.000 – 99.999 TRIUWA</h3>
+      <p>Je draagt. Je verspreidt. Je helpt anderen eruit. Je kent de scripts, de goden, de onderlaag.</p>
+    </div>
+
+    <div class="level">
+      <h3>🟪 100.000 – 999.999 TRIUWA</h3>
+      <p>Je voelt de kern. Je wordt poortwachter. Je bent geen eigenaar van het verhaal — je bént het verhaal.</p>
+    </div>
+
+    <div class="level">
+      <h3>🟨 1.000.000+ TRIUWA</h3>
+      <p>Welkom, herbergier. Je hebt een brug gebouwd voor velen. Nu is het aan jou: slopen of zaaien?</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <script>
+    const connectButton = document.getElementById('connectButton');
+    const statusDiv = document.getElementById('status');
+
+    const tokenAddress = '0x1c907176ee3920d41e9afc497148de62fca48893';
+    const tokenDecimals = 9;
+
+    async function connectWallet() {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          await ethereum.request({ method: 'eth_requestAccounts' });
+          const web3 = new Web3(window.ethereum);
+          const accounts = await web3.eth.getAccounts();
+          const account = accounts[0];
+
+          const minABI = [
+            {
+              constant: true,
+              inputs: [{ name: "_owner", type: "address" }],
+              name: "balanceOf",
+              outputs: [{ name: "balance", type: "uint256" }],
+              type: "function",
+            },
+            {
+              constant: true,
+              inputs: [],
+              name: "decimals",
+              outputs: [{ name: "", type: "uint8" }],
+              type: "function",
+            }
+          ];
+
+          const contract = new web3.eth.Contract(minABI, tokenAddress);
+          const balanceRaw = await contract.methods.balanceOf(account).call();
+          const balance = balanceRaw / Math.pow(10, tokenDecimals);
+
+          statusDiv.innerHTML = `Verbonden met ${account}<br>Je bezit ${balance} TRIUWA`;
+        } catch (error) {
+          statusDiv.innerText = 'Verbinding mislukt.';
+        }
+      } else {
+        statusDiv.innerText = 'MetaMask niet gevonden.';
+      }
+    }
+
+    connectButton.addEventListener('click', connectWallet);
+  </script>
+</body>
+</html>
