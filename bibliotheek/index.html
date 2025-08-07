@@ -1,0 +1,81 @@
+<!-- bibliotheek/index.html -->
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibliotheek | Flarde</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.8/dist/umd/index.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .laag {
+      margin-bottom: 1rem;
+    }
+    .laag button {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Flarde Bibliotheek</h1>
+  <p>
+    Deze lagen geven toegang tot steeds diepere waarheden, afhankelijk van hoeveel TRIUWA WUW je bezit.
+    Alleen wie zijn wallet koppelt en voldoende coins heeft, kan doordringen tot de volgende lagen.
+  </p>
+
+  <div id="lagen">
+    <div class="laag"><strong>Laag 1</strong> — 10+ coins <button onclick="openLaag(1, 10)">Open</button></div>
+    <div class="laag"><strong>Laag 2</strong> — 100+ coins <button onclick="openLaag(2, 100)">Open</button></div>
+    <div class="laag"><strong>Laag 3</strong> — 1.000+ coins <button onclick="openLaag(3, 1000)">Open</button></div>
+    <div class="laag"><strong>Laag 4</strong> — 10.000+ coins <button onclick="openLaag(4, 10000)">Open</button></div>
+    <div class="laag"><strong>Laag 5</strong> — 100.000+ coins <button onclick="openLaag(5, 100000)">Open</button></div>
+    <div class="laag"><strong>Laag 6</strong> — 1.000.000+ coins <button onclick="openLaag(6, 1000000)">Open</button></div>
+  </div>
+
+  <p><em>Let op: het aantal coins in je wallet bepaalt je toegang.</em></p>
+
+  <script>
+    const tokenAddress = "0x1c907176ee3920d41e9afc497148de62fca48893";
+    const tokenDecimals = 9;
+
+    async function openLaag(nummer, minAantal) {
+      if (!window.ethereum) {
+        alert("MetaMask of WalletConnect is vereist.");
+        return;
+      }
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+
+      const abi = ["function balanceOf(address) view returns (uint256)"];
+      const contract = new ethers.Contract(tokenAddress, abi, provider);
+      const raw = await contract.balanceOf(address);
+      const balance = Number(ethers.utils.formatUnits(raw, tokenDecimals));
+
+      if (balance >= minAantal) {
+        window.location.href = "/bibliotheek/laag-" + nummer + ".html";
+      } else {
+        window.location.href = "/geen-toegang.html";
+      }
+    }
+  </script>
+</body>
+</html>
