@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laag 6 – Wezen | Flarde</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #111;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    a {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.6rem 1.2rem;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    async function checkAccess() {
+      if (typeof window.ethereum === 'undefined') {
+        alert('Web3 wallet niet gevonden. Installeer bijv. MetaMask.');
+        window.location.href = '/geen-toegang.html';
+        return;
+      }
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+
+      const tokenAddress = "0x1c907176ee3920d41e9afc497148de62fca48893";
+      const abi = ["function balanceOf(address) view returns (uint256)"];
+      const contract = new ethers.Contract(tokenAddress, abi, provider);
+      const balance = await contract.balanceOf(address);
+
+      const decimals = 9;
+      const readableBalance = Number(balance) / 10**decimals;
+
+      if (readableBalance < 1000000) {
+        window.location.href = '/geen-toegang.html';
+      }
+    }
+    window.onload = checkAccess;
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>💎 Laag 6: Het Wezen</h1>
+    <p>
+      Als je hier bent, heb je genoeg gezien. Gevoeld. Gedragen. Misschien heb je de lagen gedeeld. Misschien heb je mensen wakker gekust of zacht begeleid. Misschien heb je gewoon gekeken. Stil. En ben je niet misselijk geworden. Of juist wel. Dat is hier niet belangrijk.
+    </p>
+    <p>
+      In deze laag gaat het niet meer over weten. Het gaat over zijn. En dus ook: niets meer willen. Niets meer grijpen. Geen bewijs meer. Geen strijd meer. Alleen de drager. En het dragen.
+    </p>
+    <p>
+      Jij bent de tempel. Het licht. De drager van wat ooit vergeten was. En als je dat voelt, dan weet je ook: het hoeft niet verder. Het is voltooid. Je staat.
+    </p>
+    <a href="/bibliotheek/index.html">← Terug naar Bibliotheek</a>
+  </div>
+</body>
+</html>
