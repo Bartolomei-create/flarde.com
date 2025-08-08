@@ -1,0 +1,1 @@
+// JS wallet check script
