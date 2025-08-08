@@ -1,146 +1,122 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flarde – Start</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flarde</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 960px;
-      margin: 0 auto 2rem;
-    }
-
-    .wallet-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-light {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .status-connected {
-      background-color: #0f0;
-    }
-
-    .status-disconnected {
-      background-color: #f00;
-    }
-
-    .btn {
-      padding: 0.5rem 1rem;
-      background: #444;
+      background-color: black;
       color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .btn:hover {
-      background: #666;
-    }
-
-    nav {
-      margin-top: 2rem;
+      font-family: Arial, sans-serif;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-top: 40px;
+    }
+
+    .connect-wallet {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #444;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .piramide {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .laag {
+      display: flex;
       justify-content: center;
-      gap: 1rem;
+      margin: 10px 0;
+      gap: 20px;
     }
 
-    nav a {
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: #222;
-      border-radius: 5px;
-      color: #eee;
-      text-decoration: none;
+    .laag button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
     }
 
-    nav a:hover {
-      background: #333;
+    .laag button:hover {
+      background-color: #555;
     }
+
+    .oog {
+      margin-top: 30px;
+      font-size: 24px;
+      color: gold;
+    }
+
+    .subtekst {
+      font-size: 12px;
+      color: grey;
+      text-align: center;
+      max-width: 500px;
+      margin-top: 5px;
+    }
+
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Flarde</h1>
-    <div class="wallet-status">
-      <span id="status-light" class="status-light status-disconnected"></span>
-      <button id="connectWallet" class="btn">Connect Wallet</button>
+  <h1>Flarde</h1>
+  <button class="connect-wallet">Connect Wallet</button>
+  <p>Ontgrendel lagen van kennis en bewustzijn met je TRIUWA WUW-token.</p>
+
+  <div class="piramide">
+
+    <!-- Laag 1 -->
+    <div class="laag">
+      <button onclick="location.href='basis.html'">🧱 Basis</button>
     </div>
-  </header>
 
-  <main>
-    <h2>Welkom bij Flarde</h2>
-    <p>Ontgrendel lagen van kennis en bewustzijn met je TRIUWA WUW-token.</p>
+    <!-- Laag 2 -->
+    <div class="laag">
+      <button onclick="location.href='code.html'">💻 Code</button>
+      <button onclick="location.href='licht.html'">💡 Licht</button>
+    </div>
 
-    <nav>
-      <a href="bibliotheek/index.html">📚 Bibliotheek</a>
-      <a href="piramide.html">🔺 Piramide</a>
-      <a href="klank.html">🎵 Klank</a>
-      <a href="licht.html">💡 Licht</a>
-      <a href="wezen.html">🌌 Wezen</a>
-      <a href="systeem.html">⚙️ Systeem</a>
-      <a href="basis.html">📜 Basis</a>
-      <a href="code.html">💻 Code</a>
-    </nav>
-  </main>
+    <!-- Laag 3 -->
+    <div class="laag">
+      <button onclick="location.href='systeem.html'">⚙️ Systeem</button>
+      <button onclick="location.href='klank.html'">🎵 Klank</button>
+      <button onclick="location.href='piramide.html'">🔺 Piramide</button>
+    </div>
 
-  <script>
-    const connectWalletButton = document.getElementById("connectWallet");
-    const statusLight = document.getElementById("status-light");
+    <!-- Laag 4 -->
+    <div class="laag">
+      <button onclick="location.href='wezen.html'">🌌 Zijn</button>
+    </div>
 
-    async function checkWalletConnection() {
-      if (typeof window.ethereum !== "undefined") {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        if (accounts.length > 0) {
-          statusLight.classList.remove("status-disconnected");
-          statusLight.classList.add("status-connected");
-          connectWalletButton.innerText = "Verbonden";
-        } else {
-          statusLight.classList.remove("status-connected");
-          statusLight.classList.add("status-disconnected");
-          connectWalletButton.innerText = "Connect Wallet";
-        }
-      }
-    }
+  </div>
 
-    connectWalletButton.addEventListener("click", async () => {
-      if (typeof window.ethereum !== "undefined") {
-        try {
-          await window.ethereum.request({ method: "eth_requestAccounts" });
-          checkWalletConnection();
-        } catch (err) {
-          console.error("Connectie geweigerd:", err);
-        }
-      } else {
-        alert("Installeer MetaMask om door te gaan.");
-      }
-    });
+  <!-- Oog -->
+  <div class="oog">👁</div>
+  <div class="subtekst">Zevende laag. Alleen zichtbaar boven de 1 miljard TRIUWA WUW. Niet te bereiken, alleen te herkennen.</div>
 
-    window.addEventListener("load", () => {
-      checkWalletConnection();
-    });
-  </script>
+  <!-- Bibliotheek -->
+  <div class="laag" style="margin-top: 30px;">
+    <button onclick="location.href='bibliotheek/index.html'">📚 Bibliotheek</button>
+  </div>
+  <div class="subtekst">Toegang vereist gekoppelde wallet met vereiste hoeveelheid coins.</div>
 
 </body>
 </html>
