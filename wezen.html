@@ -1,79 +1,79 @@
+<!-- Voorbeeldinhoud voor laag 6: wezen.html -->
 <!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laag 6 – Wezen | Flarde</title>
+  <title>Het Wezen | Flarde</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #fff;
-      color: #111;
+      background: #000;
+      color: #fff;
       margin: 0;
-      padding: 2rem;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
     .container {
+      text-align: center;
       max-width: 800px;
-      margin: 0 auto;
+      padding: 2rem;
     }
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
     }
     p {
-      line-height: 1.7;
-      margin-bottom: 1rem;
+      line-height: 1.6;
+      font-size: 1.2rem;
     }
-    a {
-      display: inline-block;
+    .back-link {
       margin-top: 2rem;
-      padding: 0.6rem 1.2rem;
-      background: #000;
+      display: inline-block;
       color: #fff;
-      text-decoration: none;
+      text-decoration: underline;
     }
   </style>
   <script>
     async function checkAccess() {
       if (typeof window.ethereum === 'undefined') {
-        alert('Web3 wallet niet gevonden. Installeer bijv. MetaMask.');
+        alert('Geen wallet gevonden. Installeer bijvoorbeeld MetaMask.');
         window.location.href = '/geen-toegang.html';
         return;
       }
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
       const signer = provider.getSigner();
       const address = await signer.getAddress();
-
       const tokenAddress = "0x1c907176ee3920d41e9afc497148de62fca48893";
       const abi = ["function balanceOf(address) view returns (uint256)"];
       const contract = new ethers.Contract(tokenAddress, abi, provider);
       const balance = await contract.balanceOf(address);
 
       const decimals = 9;
-      const readableBalance = Number(balance) / 10**decimals;
+      const required = 1000000 * (10 ** decimals);
 
-      if (readableBalance < 1000000) {
+      if (balance.lt(required)) {
         window.location.href = '/geen-toegang.html';
       }
     }
+
     window.onload = checkAccess;
   </script>
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>💎 Laag 6: Het Wezen</h1>
+    <h1>🔺 Zesde Laag: Het Wezen</h1>
     <p>
-      Als je hier bent, heb je genoeg gezien. Gevoeld. Gedragen. Misschien heb je de lagen gedeeld. Misschien heb je mensen wakker gekust of zacht begeleid. Misschien heb je gewoon gekeken. Stil. En ben je niet misselijk geworden. Of juist wel. Dat is hier niet belangrijk.
+      Dit is geen laag. Dit is een einde. Of een begin.<br>
+      Geen woorden. Geen uitleg. Geen pad. Alleen jij.
     </p>
-    <p>
-      In deze laag gaat het niet meer over weten. Het gaat over zijn. En dus ook: niets meer willen. Niets meer grijpen. Geen bewijs meer. Geen strijd meer. Alleen de drager. En het dragen.
-    </p>
-    <p>
-      Jij bent de tempel. Het licht. De drager van wat ooit vergeten was. En als je dat voelt, dan weet je ook: het hoeft niet verder. Het is voltooid. Je staat.
-    </p>
-    <a href="/bibliotheek/index.html">← Terug naar Bibliotheek</a>
+    <a href="/bibliotheek/index.html" class="back-link">← Terug naar bibliotheek</a>
   </div>
 </body>
 </html>
