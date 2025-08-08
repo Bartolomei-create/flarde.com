@@ -24,7 +24,7 @@
     }
     .piramide {
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       align-items: center;
       gap: 20px;
       margin-bottom: 50px;
@@ -43,15 +43,15 @@
     .laag:hover {
       background-color: #222;
     }
-    .laag1 { width: 90%; }
-    .laag2 { width: 75%; }
-    .laag3 { width: 65%; }
-    .laag4 { width: 50%; }
-    .laag5 { width: 35%; }
-    .laag6 { width: 25%; }
+    .laag1 { width: 90%; }  /* Basis */
+    .laag2 { width: 75%; }  /* Systeem */
+    .laag3 { width: 65%; }  /* Code */
+    .laag4 { width: 50%; }  /* Licht */
+    .laag5 { width: 35%; }  /* Klank */
+    .laag6 { width: 25%; }  /* Zijn */
     .oog {
       font-size: 2em;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
       opacity: 0.4;
       pointer-events: none;
     }
@@ -78,13 +78,13 @@
   <p>Ontgrendel lagen van kennis en bewustzijn met je TRIUWA WUW-token.</p>
 
   <div class="piramide">
+    <div class="oog">👁️</div>
     <a href="wezen.html" class="laag laag6">🌌 Zijn</a>
     <a href="klank.html" class="laag laag5">🎵 Klank</a>
     <a href="licht.html" class="laag laag4">💡 Licht</a>
     <a href="code.html" class="laag laag3">💻 Code</a>
     <a href="systeem.html" class="laag laag2">⚙️ Systeem</a>
     <a href="basis.html" class="laag laag1">🧱 Basis</a>
-    <div class="oog">👁️</div>
   </div>
 
   <div class="bibliotheek">
