@@ -1,144 +1,24 @@
-<!-- Bibliotheek: index.html -->
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TRIUWA WUW Bibliotheek</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-  <script src="https://unpkg.com/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Flarde Bibliotheek</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f4f4;
-      color: #111;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem;
-      background: #000;
-      color: #fff;
-    }
-    .wallet-status {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: red;
-    }
-    .connected .status-dot {
-      background: green;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      font-size: 2rem;
-    }
-    .laag {
-      margin: 1rem 0;
-    }
-    .laag a {
-      display: inline-block;
-      background: #000;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .laag.locked {
-      opacity: 0.4;
-    }
+    body { background-color: #000; color: #fff; font-family: Arial, sans-serif; padding: 2em; text-align: center; }
+    h1 { font-size: 2.5em; margin-bottom: 1em; }
+    .laaglink { display: block; margin: 1em auto; padding: 1em 2em; background: #222; color: #fff; border-radius: 10px; text-decoration: none; max-width: 300px; }
+    .laaglink:hover { background: #444; }
   </style>
 </head>
 <body>
-  <header>
-    <h2>Bibliotheek</h2>
-    <div class="wallet-status" id="walletStatus">
-      <div class="status-dot"></div>
-      <span id="walletAddress">Niet verbonden</span>
-    </div>
-  </header>
-
-  <main>
-    <h1>Toegang tot de lagen</h1>
-    <p>Deze bibliotheek bevat lagen met kennis, waarheid en inzicht. Je TRIUWA WUW coinbezit bepaalt tot welke laag je toegang hebt. Hoe meer je draagt, hoe verder je ziet.</p>
-
-    <div class="laag" id="laag1">
-      <h3>Laag 1 — 10 WUW</h3>
-      <a href="/bibliotheek/laag-1.html">Bekijk laag</a>
-    </div>
-    <div class="laag" id="laag2">
-      <h3>Laag 2 — 100 WUW</h3>
-      <a href="/bibliotheek/laag-2.html">Bekijk laag</a>
-    </div>
-    <div class="laag" id="laag3">
-      <h3>Laag 3 — 1.000 WUW</h3>
-      <a href="/bibliotheek/laag-3.html">Bekijk laag</a>
-    </div>
-    <div class="laag" id="laag4">
-      <h3>Laag 4 — 10.000 WUW</h3>
-      <a href="/bibliotheek/laag-4.html">Bekijk laag</a>
-    </div>
-    <div class="laag" id="laag5">
-      <h3>Laag 5 — 100.000 WUW</h3>
-      <a href="/bibliotheek/laag-5.html">Bekijk laag</a>
-    </div>
-    <div class="laag" id="laag6">
-      <h3>Laag 6 — 1.000.000 WUW</h3>
-      <a href="/bibliotheek/laag-6.html">Bekijk laag</a>
-    </div>
-  </main>
-
-  <script>
-    const contractAddress = "0x1c907176ee3920d41e9afc497148de62fca48893";
-    const tokenDecimals = 9;
-
-    async function init() {
-      if (!window.ethereum) return;
-      try {
-        await ethereum.request({ method: 'eth_requestAccounts' });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
-        document.getElementById("walletAddress").textContent = `${address.slice(0, 6)}...${address.slice(-4)}`;
-        document.querySelector(".wallet-status").classList.add("connected");
-
-        const contract = new ethers.Contract(contractAddress, ["function balanceOf(address) view returns (uint256)"], provider);
-        const balanceRaw = await contract.balanceOf(address);
-        const balance = parseFloat(ethers.utils.formatUnits(balanceRaw, tokenDecimals));
-
-        // Toon alleen de juiste lagen
-        if (balance < 10) hide("laag1");
-        if (balance < 100) hide("laag2");
-        if (balance < 1000) hide("laag3");
-        if (balance < 10000) hide("laag4");
-        if (balance < 100000) hide("laag5");
-        if (balance < 1000000) hide("laag6");
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function hide(id) {
-      const el = document.getElementById(id);
-      if (el) el.classList.add("locked");
-    }
-
-    window.addEventListener("load", init);
-  </script>
+  <h1>Flarde Bibliotheek</h1>
+  <a class="laaglink" href="laag1.html">🧱 Basis</a>
+  <a class="laaglink" href="laag2.html">⚙️ Systeem</a>
+  <a class="laaglink" href="laag3.html">💻 Code</a>
+  <a class="laaglink" href="laag4.html">💡 Licht</a>
+  <a class="laaglink" href="laag5.html">🎵 Klank</a>
+  <a class="laaglink" href="laag6.html">🌌 Zijn</a>
 </body>
 </html>
