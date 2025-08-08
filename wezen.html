@@ -8,72 +8,63 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      padding: 2rem;
+      background: #fefefe;
+      color: #111;
     }
     .container {
-      text-align: center;
       max-width: 800px;
-      padding: 2rem;
+      margin: 0 auto;
     }
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
     }
     p {
       line-height: 1.6;
-      font-size: 1.2rem;
     }
-    .back-link {
-      margin-top: 2rem;
+    ul {
+      margin-top: 1rem;
+      padding-left: 1.5rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    a {
       display: inline-block;
+      margin-top: 2rem;
+      background: #000;
       color: #fff;
-      text-decoration: underline;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      font-weight: bold;
     }
   </style>
-  <script>
-    async function checkAccess() {
-      if (typeof window.ethereum === 'undefined') {
-        alert('Geen wallet gevonden. Installeer bijvoorbeeld MetaMask.');
-        window.location.href = '/geen-toegang.html';
-        return;
-      }
-
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
-      const tokenAddress = "0x1c907176ee3920d41e9afc497148de62fca48893";
-      const abi = ["function balanceOf(address) view returns (uint256)"];
-      const contract = new ethers.Contract(tokenAddress, abi, provider);
-      const balance = await contract.balanceOf(address);
-
-      const decimals = 9;
-      const required = 1000000 * (10 ** decimals);
-
-      if (balance.lt(required)) {
-        window.location.href = '/geen-toegang.html';
-      }
-    }
-
-    window.onload = checkAccess;
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🔺 Zesde Laag: Het Wezen</h1>
+    <h1>🌟 Zesde Laag: Het Wezen</h1>
     <p>
-      Dit is geen laag. Dit is een einde. Of een begin.<br>
-      Geen woorden. Geen uitleg. Geen pad. Alleen jij.
+      Dit is de kern. Het wezen. De essentie van wie je bent — vóór alle lagen, rollen, woorden, systemen en overtuigingen. Het punt waarop licht, klank en vorm samenkomen. 
     </p>
-    <a href="/bibliotheek/index.html" class="back-link">← Terug naar bibliotheek</a>
+
+    <p>
+      Hier vind je toegang tot het meest kwetsbare en krachtige deel van jezelf. De lagen over:
+    </p>
+
+    <ul>
+      <li>🧠 De pijnappelklier — poort tussen werelden</li>
+      <li>☁️ Ether en intentie — de bouwstenen van waarneming</li>
+      <li>🔄 Transformatie — via verlies, stilte en herinnering</li>
+      <li>🌀 De bronfrequentie — klank vóór het woord</li>
+    </ul>
+
+    <p>
+      Deze laag is geen les, maar een spiegel. Geen waarheid, maar een uitnodiging. Alles wat hier staat is bedoeld als een flard, een vonk, een brug. Richting het wezen.
+    </p>
+
+    <a href="/klank">← Vorige laag</a>
+    <a href="/bibliotheek">Terug naar bibliotheek</a>
   </div>
 </body>
 </html>
